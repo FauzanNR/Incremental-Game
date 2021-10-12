@@ -33,6 +33,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1030893318675:android:52c037e39d11dea87185e6",
+        "android_client_info": {
+          "package_name": "com.testcompany.incrementalgame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1030893318675-k2cuka1aatrs7kbu0k8n5decl14grt95.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWpEh9xlovnUdDTENot1uIvjdRxHl1-u8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1030893318675-k2cuka1aatrs7kbu0k8n5decl14grt95.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
