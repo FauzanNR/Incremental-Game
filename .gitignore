@@ -57,5 +57,5 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
-Assets/Firebase/Plugins/x86_64/FirebaseCppApp-8_3_0.so
+#Assets/Firebase/Plugins/x86_64/FirebaseCppApp-8_3_0.so
 
