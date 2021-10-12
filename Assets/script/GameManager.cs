@@ -16,7 +16,6 @@ public class GameManager: MonoBehaviour {
 	public Text autoCollectInfo;
 	private List<ResourceController> activeResources = new List<ResourceController>();
 	private float collectSecond;
-	public double totalGold;
 	public TapText tapTextPrefab;
 	public Transform coinIcon;
 	private List<TapText> tapTextPool = new List<TapText>();
@@ -41,6 +40,7 @@ public class GameManager: MonoBehaviour {
 
 	private void Start() {
 		AddAllResources();
+		goldInfo.text = $"Gold: { UserDataManager.Progress.Gold.ToString( "0" ) }";
 	}
 
 	private void Update() {
@@ -59,9 +59,9 @@ public class GameManager: MonoBehaviour {
 		foreach(ResourceController resource in activeResources) {
 			bool isBuyable = false;
 			if(resource.isUnlocked) {
-				isBuyable = totalGold >= resource.getUpgradeCost();
+				isBuyable = UserDataManager.Progress.Gold >= resource.getUpgradeCost();
 			} else {
-				isBuyable = totalGold >= resource.getUnlockCost();
+				isBuyable = UserDataManager.Progress.Gold >= resource.getUnlockCost();
 			}
 
 			resource.resImage.sprite = resourcesSprites[isBuyable ? 1 : 0];
@@ -69,18 +69,19 @@ public class GameManager: MonoBehaviour {
 	}
 
 	private void AddAllResources() {
-
+		int index = 0;
 		bool showResource = true;
 		foreach(ResourceConfig config in resourcesConfigs) {
 			GameObject obj = Instantiate( resourcePrefab.gameObject, resourcesParent, false );
 			ResourceController resource = obj.GetComponent<ResourceController>();
-			resource.setConfig( config );
-			activeResources.Add( resource );
-
+			resource.setConfig( config, index );
 			obj.gameObject.SetActive( showResource );
+
 			if(showResource && !resource.isUnlocked) {
 				showResource = false;
 			}
+			activeResources.Add( resource );
+			index++;
 		}
 	}
 
@@ -95,8 +96,9 @@ public class GameManager: MonoBehaviour {
 	}
 
 	public void addGold(double value) {
-		totalGold += value;
-		goldInfo.text = $"Gold: { totalGold.ToString( "0" ) }";
+		UserDataManager.Progress.Gold += value;
+		goldInfo.text = $"Gold: { UserDataManager.Progress.Gold.ToString( "0" ) }";
+		UserDataManager.Save();
 	}
 
 	public void collectByTap(Vector3 tapPosition, Transform parent) {
