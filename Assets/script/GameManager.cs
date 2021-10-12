@@ -20,6 +20,7 @@ public class GameManager: MonoBehaviour {
 	public Transform coinIcon;
 	private List<TapText> tapTextPool = new List<TapText>();
 	public Sprite[] resourcesSprites;
+	float time = 0.0f;
 
 	[System.Serializable]
 	public struct ResourceConfig {
@@ -45,6 +46,8 @@ public class GameManager: MonoBehaviour {
 
 	private void Update() {
 		collectSecond += Time.unscaledDeltaTime;
+		time += Time.deltaTime;
+
 		if(collectSecond >= 1f) {
 			collectPerSecond();
 			collectSecond = 0f;
@@ -98,7 +101,10 @@ public class GameManager: MonoBehaviour {
 	public void addGold(double value) {
 		UserDataManager.Progress.Gold += value;
 		goldInfo.text = $"Gold: { UserDataManager.Progress.Gold.ToString( "0" ) }";
-		UserDataManager.Save();
+		int seconds = ( int )(time % 60);
+		if(seconds % 5 == 0) Debug.Log( "collec second: " + seconds );
+		//upload every 5 seconds
+		UserDataManager.Save( seconds % 5 == 0 );
 	}
 
 	public void collectByTap(Vector3 tapPosition, Transform parent) {
