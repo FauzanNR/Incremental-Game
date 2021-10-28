@@ -83,7 +83,7 @@ public class ResourceController: MonoBehaviour {
 		popUpSFX.Play();
 		GameManager.Instance.ShowNextResource();
 		AchievementController.Instance.UnlockAchievement( AchievementType.UnlockResource, config.Name );
-		AnalyticsManager.LogUpgradeEvent( _index, level );
+		AnalyticsManager.LogUnlockEvent( _index );
 	}
 
 	private void setUnlocked(bool unlocked) {
